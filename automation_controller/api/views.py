@@ -36,7 +36,7 @@ def users(request):
         return JsonResponse('Method is not supported', status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 @api_view(['GET', 'PATCH', 'DELETE'])
-def users(request, email):
+def user(request, email):
     try: 
         user = User.objects.get(email=email) 
     except User.DoesNotExist:
