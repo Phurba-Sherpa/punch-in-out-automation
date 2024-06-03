@@ -7,6 +7,8 @@ from rest_framework.decorators import api_view
 from .models import User
 from api.serializers import UserSerializer
 
+USER_WITH_EMAIL_NOT_EXISTS = "User with given email doesn't exist."
+
 @api_view(['GET', 'POST'])
 def users(request):
     if request.method == 'GET':
@@ -22,7 +24,7 @@ def users(request):
         
         # Check if password and confirm password matches
         if password != confirm_password:
-            raise JsonResponse("password and confirm password doesn't match", status=status.HTTP_400_BAD_REQUEST)
+            raise JsonResponse(data = {"message": "password and confirm password doesn't match"}, status=status.HTTP_400_BAD_REQUEST)
         
         # Save password
         new_user = User(mac_addr='04-ea-56-04-bb-6d', email=email,
@@ -40,8 +42,8 @@ def user(request, email):
     try: 
         user = User.objects.get(email=email) 
     except User.DoesNotExist:
-        return JsonResponse("User with given email doesn't exist.", status=status.HTTP_404_NOT_FOUND)
+        return JsonResponse(data={"message": USER_WITH_EMAIL_NOT_EXISTS}, status=status.HTTP_404_NOT_FOUND)
     if request.method == 'GET':
-        user_json = UserSerializer(data=user)
-        return JsonResponse(data=user_json, status=status.HTTP_200_OK)
+        user_json = UserSerializer(user, many=False)
+        return JsonResponse(data=user_json.data, safe=False, status=status.HTTP_200_OK)
         
