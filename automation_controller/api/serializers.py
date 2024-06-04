@@ -4,4 +4,4 @@ from .models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields=("email", "orange_hrm_username", "orange_hrm_password", "created_at")
+        fields=("mac_addr", "email", "password", "orange_hrm_username", "orange_hrm_password", "created_at")
