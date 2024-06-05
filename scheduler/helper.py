@@ -8,16 +8,23 @@ ONLINE_ECHO_FAILED_MSG = 'Request timed out.'
 ONLINE_ECHO_SUCCESS_MSG = '0% loss'
 
 ### will fetch the physical address from arp table
-arp_req_command = 'arp -a'
 mac_addr_pattern = '([-0-9a-f]{17})'
 
-def get_mac_addr_list():
-    result = subprocess.run(arp_req_command, stdout=subprocess.PIPE)
-    arp_table = result.stdout.decode('utf8')
-    mac_addr_list = []
-    for addr in re.findall(mac_addr_pattern, arp_table):
-        mac_addr_list.append(addr)
-    return mac_addr_list
+def get_mac_addr_list(ip_addr_list):
+    ip_mac_table = {}
+    for ip_addr in ip_addr_list:
+        arp_req_command = 'arp -a ' + ip_addr
+        result = subprocess.run(arp_req_command, stdout=subprocess.PIPE)
+        arp_info = result.stdout.decode('utf8')
+        
+        # Extract mac
+        matched_mac_addr_list = re.findall(mac_addr_pattern, arp_info)
+        
+        # if matched then will have matched list, if not then []
+        if len(matched_mac_addr_list) != 0:
+            ip_mac_table[ip_addr] = matched_mac_addr_list[0]
+    return ip_mac_table
+    
 
 def ping_device(ip_addr_list):
     online_ip_addr_list = []
@@ -36,5 +43,5 @@ def ping_device(ip_addr_list):
     print('online ip addr', online_ip_addr_list)
     print('offline ip addr', offline_ip_addr_list)
 
-ip_addr_list = ['192.168.1.93', '192.168.1.91', '192.168.1.73']
-ping_device(ip_addr_list)
+ip_addr_list = ['192.168.1.65', '192.168.1.68', '192.168.1.73']
+get_mac_addr_list(ip_addr_list)
