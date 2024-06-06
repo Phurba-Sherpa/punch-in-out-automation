@@ -1,19 +1,16 @@
 ## Todo
 
 1. Api
-   - user registration: email, password
-   - user fetch
-   - user patch: update with website credential
-   - user delete: this will be soft delete
+   - user registration: email, password         ✔
+   - user fetch                                 ✔
+   - user patch: update with website credential ✔
+   - user delete: this will be soft delete      ✔
 2. Scheduler
-   - check device online status
-   - fetch mac address
-   - for each mac address query the db and fetch website credential
-   - automate punch in
+   - fetch online and offline device list                                  ✔
+   - for each of the online or offline build table for ip-addr -> mac-addr ✔
+   - Morning: for each online ip, punch in
+   - Evening: for each offline device, punch out
    - check device offline
-   - fetch mac address
-   - for each mac addr, query db and fetch web cred
-   - automate punch out
 3. UI
    - create login page
    - create registration page
