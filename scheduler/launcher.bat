@@ -1,0 +1,1 @@
+powershell ./manager.ps1 -NoExits

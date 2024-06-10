@@ -74,3 +74,25 @@ def get_operation_type():
         return OPERATION_TYPES.get('PUNCH_IN')
     elif current_time > PUNC_OUT_TIME_MIN_TH:
         return OPERATION_TYPES.get('PUNCH_OUT')
+    
+
+import schedule
+import time
+
+seconds = [10, 20, 30]
+def greet(name):
+    print('Hello', name)
+    return schedule.CancelJob
+
+if __name__ == '__main__':
+    for second in seconds: 
+        schedule.every(second).seconds.do(greet, name='World')
+    while True:
+        n = schedule.idle_seconds()
+        if n is None:
+            break
+        elif n > 0:
+            print('\ndelayed for', n)
+            time.sleep(n)
+        schedule.run_pending()
+
