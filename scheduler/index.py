@@ -7,12 +7,12 @@ import time
 from helper import get_online_offline_devices, get_operation_type
 from crontab import CronTab
 # Params
-URL = 'http://185.185.127.219:8080/login.jsp'   # Url of the orange website
+URL = 'http://google.com/login.jsp'   # Url of the orange website
 USERNAME_INPUT_ID = 'login-form-username'       # Id of username input element
 PASSWORD_INPUT_ID = 'login-form-password'       # Id of password input element
 SUBMIT_BTN_ID = 'login-form-submit'             # Id of submit btn
-username='phurba.sherpa'
-password='Phurb@12'
+username='username'
+password='password'
 
 def main():
 
